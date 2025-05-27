@@ -36,3 +36,23 @@ body {
 .color-primary {
   color: var(--color-primary);
 }
+
+.bg-gray {
+  background-color: var(--color-gray);
+}
+
+.w15 {
+  width: 1.5rem;
+}
+
+.h15 {
+  height: 1.5rem;
+}
+
+.w25 {
+  width: 3rem;
+}
+
+.h25 {
+  height: 3rem;
+}
