@@ -16,7 +16,7 @@ function LeftSidebar() {
     <div className={styles.leftSidebar}>
       <div
         className={classNames(
-          'flex flex-column items-start fixed',
+          'flex flex-column items-start fixed overflow-auto h-100',
           styles.leftSidebar
         )}
       >
