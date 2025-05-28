@@ -2,87 +2,67 @@ import styles from './app.module.css';
 import classNames from 'classnames';
 import Avatar from '../Avatar/Avatar';
 import image from '../Avatar/man.png';
-import IconImage from '../../assets/icons/IconImage';
-import IconGif from '../../assets/icons/IconGif';
-import IconEmoji from '../../assets/icons/IconEmoji';
-import IconLocation from '../../assets/icons/IconLocation';
-import IconPoll from '../../assets/icons/IconPoll';
-import IconShedule from '../../assets/icons/IconSchedule';
-import { useState } from 'react';
-import { isEmpty } from 'lodash';
+import TweetComposer from './TweetComposer';
+import IconComment from '../../assets/icons/IconComment';
+import IconRetweet from '../../assets/icons/IconRetweet';
+import IconLike from '../../assets/icons/IconLike';
+import IconShare from '../../assets/icons/IconShare';
 
-function TweetAreaInput({ setText }: { setText: (text: string) => void }) {
-  const adjustHeight = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    const element = event.currentTarget;
-    element.style.height = '1px';
-    element.style.height = 25 + element.scrollHeight + 'px';
-
-    setText(element.value);
-  };
+function TimelineTweet() {
   return (
-    <textarea
-      onInput={adjustHeight}
-      className={classNames('w-100 f4', styles.tweetArea)}
-      placeholder={"What's happening?"}
-    />
-  );
-}
+    <div className="flex pa3">
+      <div className="mr3">
+        <Avatar />
+      </div>
 
-function Toolbar() {
-  return (
-    <div className={classNames('flex', styles.tweetToolbar)}>
-      <button className="btn pa2 br-100 flex mr1">
-        <IconImage className="w1125 h125" />
-      </button>
-      <button className="btn pa2 br-100 flex mr1">
-        <IconGif className="w1125 h125" />
-      </button>
-      <button className="btn pa2 br-100 flex mr1">
-        <IconPoll className="w1125 h125" />
-      </button>
-      <button className="btn pa2 br-100 flex mr1">
-        <IconEmoji className="w1125 h125" />
-      </button>
-      <button className="btn pa2 br-100 flex mr1">
-        <IconShedule className="w1125 h125" />
-      </button>
-      <button className="btn pa2 br-100 flex mr1">
-        <IconLocation className="w1125 h125" />
-      </button>
-    </div>
-  );
-}
+      <div className="flex flex-column flex-auto">
+        <div className="flex items-center mb2">
+          <b className="mr2">Anton Bavaj</b>
+          <span>Bacaj</span>
+          <span className="f7 mh2">·</span>
+          <span>24m</span>
+        </div>
 
-function TweetArea() {
-  const [text, setText] = useState('');
+        <p className="ma0 mb2">Tweet text</p>
 
-  return (
-    <div className="flex-auto">
-      <TweetAreaInput setText={setText} />
-      <div className="flex justify-between items-center">
-        <Toolbar />
-        <button
-          className={classNames('btn btn-primary b ph3 pv2 br-pill', {
-            'o-50': isEmpty(text),
-          })}
+        <div
+          className={classNames('flex justify-between', styles.timelineToolBar)}
         >
-          Tweet
-        </button>
+          <button className="btn flex pa0 items-center f7">
+            <IconComment className="w125 h125 pa2 br-100 mr1" />
+            <span>10</span>
+          </button>
+          <button className="btn flex pa0 items-center f7">
+            <IconRetweet className="w125 h125 pa2 br-100 mr1" />
+            <span>10</span>
+          </button>
+          <button className="btn flex pa0 items-center f7">
+            <IconLike className="w125 h125 pa2 br-100 mr1" />
+            <span>10</span>
+          </button>
+          <button className="btn flex pa0 mr5 items-center f7">
+            <IconShare className="w125 h125 pa2 br-100 mr1" />
+            <span>10</span>
+          </button>
+        </div>
       </div>
     </div>
   );
 }
-
 function MainContent() {
   return (
-    <div className={classNames(styles.mainContent, 'ph3')}>
-      <h3>Latest tweets</h3>
-      <div className="flex">
-        <div className="mr3">
-          <Avatar src={image} />
+    <div className={classNames(styles.mainContent)}>
+      <div className={classNames('ph3 pb3', styles.tweetComposer)}>
+        <h3>Latest tweets</h3>
+        <div className="flex">
+          <div className="mr3">
+            <Avatar src={image} />
+          </div>
+          <TweetComposer />
         </div>
-        <TweetArea />
       </div>
+
+      <TimelineTweet />
     </div>
   );
 }
