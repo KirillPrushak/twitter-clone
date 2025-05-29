@@ -10,6 +10,7 @@ import Avatar from '../Avatar/Avatar';
 import styles from './app.module.css';
 import classNames from 'classnames';
 import Loader from '../Loader/Loader';
+import useTweets from '../../hooks/tweets';
 
 function TimelineTweet({ tweet }: { tweet: Tweet }) {
   return (
@@ -74,14 +75,20 @@ function Timeline({ tweets }: { tweets: Array<Tweet> }) {
 
 function TimelineContainer() {
   const loading = false;
-  const tweets: Array<Tweet> = [];
+  const getTweets = useTweets();
+  const tweets = getTweets.data ?? [];
+  // const tweets: Array<Tweet> = [];
 
-  if (loading) {
+  if (getTweets.isLoading) {
     return (
       <div className="flex justify-center flex-auto mv4">
         <Loader />
       </div>
     );
+  }
+
+  if (getTweets.isError) {
+    return <p className="tc f4 b mv4">Failed to fetch tweets...</p>;
   }
 
   if (tweets.length === 0) {
